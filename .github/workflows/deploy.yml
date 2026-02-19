@@ -1,0 +1,29 @@
+name: Deploy to Plesk
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SFTP to Plesk
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          server: ${{ secrets.PLESK_HOST }}
+          username: ${{ secrets.PLESK_USER }}
+          password: ${{ secrets.PLESK_PASS }}
+          port: 22
+          local_path: "./"
+          remote_path: ${{ secrets.PLESK_REMOTE_PATH }}
+          delete_remote_files: false
+          exclude: |
+            .git*
+            .github/
+            README.md
