@@ -1,0 +1,115 @@
+/*
+ Theme Name: Twenty Twenty-Three Child
+ Theme URI: https://wosonos26.com/
+ Description: Child theme for Twenty Twenty-Three
+ Author: Stefan van Delft
+ Template: twentytwentythree
+ Version: 1.0
+*/
+
+/********** SD CSS **********/
+/***** SD Main CSS *****/
+body {
+     margin: 0;
+     padding: 0;
+}
+[class~='container'] {
+     margin: 0;
+     padding: 0;
+}
+[class~='row'] {
+     margin: 0;
+     padding: 0;
+}
+.row>* {
+     margin: 0;
+     padding: 0;
+}
+[class~='col'] {
+     margin: 0;
+     padding: 0;
+}
+.page, ul {
+     margin: 0;
+     padding: 0;
+}
+
+a, a:focus, a:active, a:visited {
+    outline: none !important;
+}
+button, button:focus, button:active, button:visited {
+    outline: none !important;
+}
+.btn, .btn:focus, .btn:active, .btn:visited {
+    outline: none !important;
+    box-shadow: none !important;
+}
+/***** End SD Main CSS *****/
+
+/********** Bootstrap 5 Breakpoints **********/
+/***** BS Extra small devices (portrait phones, less than 576px) –– Test on Browserstack *****/
+/* No Media Query */
+body:before {
+	content: "xs";
+	display: none;
+	visibility: hidden;
+}
+
+/***** BS sm devices (landscape phones, 576px and up) –– Test on Browserstack *****/
+@media (min-width: 576px) {
+     body:before {
+          content: "sm";
+          display: none;
+          visibility: hidden;
+     }
+	@media only screen and (orientation: landscape) { /* [576*324] */
+     }
+     @media only screen and (orientation: portrait) { /* [576*768] */
+     }
+}
+
+/***** BS md devices (tablets, 768px and up) –– Test on Window 768x1024 and Browserstack *****/
+@media (min-width: 768px) {
+     body:before {
+          content: "md";
+          display: none;
+          visibility: hidden;
+     }
+	@media only screen and (orientation: landscape) { /* 812*375 => [768*354] */
+     }
+	@media only screen and (orientation: portrait) {
+     }
+}
+
+/***** BS lg devices (desktops, 992px and up) –– Test on Window 1024x768 [992*558] *****/
+@media (min-width: 992px) {
+     body:before {
+          content: "lg";
+          display: none;
+          visibility: hidden;
+     }
+}
+
+/***** BS xl devices (large desktops, 1200px and up) –– Test on Window 1366x768 [1200*675] *****/
+@media (min-width: 1200px) {
+     body:before {
+          content: "xl";
+          display: none;
+          visibility: hidden;
+     }
+}
+
+/***** BS xxl devices (extra large desktops, 1400px and up) –– Test on Window 1440x900 and 1536x864 [1400*787] *****/
+@media (min-width: 1400px) {
+     body:before {
+          content: "xxl";
+          display: none;
+          visibility: hidden;
+     }
+}
+
+/***** BS xxxl devices (extra large desktops, 1800px and up) –– Test on Window 1920x1080 and 2560x1440 [1800*1012] *****/
+@media (min-width: 1800px) {
+}
+/********** End Bootstrap 5 Breakpoints **********/
+/********** End SD CSS **********/
