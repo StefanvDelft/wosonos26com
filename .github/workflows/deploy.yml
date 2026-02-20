@@ -1,0 +1,36 @@
+name: Deploy via FTPS to Plesk
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ftp-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy to Plesk via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.PLESK_SERVER }}
+          username: ${{ secrets.PLESK_USER }}
+          password: ${{ secrets.PLESK_PASS }}
+          protocol: ftps
+          port: 21
+          local-dir: ./
+          server-dir: /httpdocs/wp-content/themes/twentytwentythree-child/
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/.gitignore
+            **/README.md
+            **/node_modules/**
+            **/package-lock.json
+            **/package.json
+            **/composer.json
+            **/composer.lock
