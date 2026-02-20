@@ -1,36 +1,39 @@
-name: Deploy via FTPS to Plesk
+name: Deploy to Plesk via FTPS
 
+# Trigger: push naar main branch
 on:
   push:
     branches:
       - main
 
 jobs:
-  ftp-deploy:
-    name: Deploy
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      # 1️⃣ Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy to Plesk via FTPS
+      # 2️⃣ Deploy via FTPS
+      - name: Deploy to Plesk
         uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server: ${{ secrets.PLESK_SERVER }}
-          username: ${{ secrets.PLESK_USER }}
-          password: ${{ secrets.PLESK_PASS }}
-          protocol: ftps
+          server: ${{ secrets.FTP_HOST }}        # bv. 5.61.252.55
+          username: ${{ secrets.FTP_USER }}      # jouw FTP-user
+          password: ${{ secrets.FTP_PASSWORD }}  # veilig opgeslagen in Secrets
+          protocol: ftps                         # explicit TLS
           port: 21
-          local-dir: ./
-          server-dir: /httpdocs/wp-content/themes/twentytwentythree-child/
+          server-dir: /httpdocs/                 # deploy root
+          local-dir: ./                           # alles lokaal
           exclude: |
             **/.git*
             **/.github/**
-            **/.gitignore
-            **/README.md
             **/node_modules/**
-            **/package-lock.json
-            **/package.json
-            **/composer.json
-            **/composer.lock
+            **/wp-content/uploads/**
+            **/wp-content/cache/**
+            **/logs/**
+
+      # 3️⃣ Optioneel: bevestiging
+      - name: Done
+        run: echo "✅ Deploy completed successfully!"
