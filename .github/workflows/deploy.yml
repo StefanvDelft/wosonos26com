@@ -1,4 +1,4 @@
-name: Deploy to Plesk
+name: Deploy via FTPS to Plesk
 
 on:
   push:
@@ -13,13 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy via SFTP to Plesk
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: Deploy via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4
         with:
           server: ${{ secrets.PLESK_HOST }}
           username: ${{ secrets.PLESK_USER }}
           password: ${{ secrets.PLESK_PASS }}
-          port: 22
-          local_path: "./"
-          remote_path: ${{ secrets.PLESK_REMOTE_PATH }}
-          delete_remote_files: false
+          protocol: ftps
+          local-dir: ./ # your repo root is the theme folder
+          server-dir: /httpdocs/wp-content/themes/twentytwentythree-child/
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/README.md
