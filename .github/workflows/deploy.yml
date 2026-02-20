@@ -1,10 +1,8 @@
-name: Deploy to Plesk via FTPS
+name: Deploy Child Theme to Plesk via FTPS
 
-# Trigger: push naar main branch
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
@@ -15,25 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Deploy via FTPS
-      - name: Deploy to Plesk
+      # 2️⃣ Deploy naar server
+      - name: Deploy Child Theme via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4
         with:
-          server: ${{ secrets.FTP_HOST }}        # bv. 5.61.252.55
-          username: ${{ secrets.FTP_USER }}      # jouw FTP-user
-          password: ${{ secrets.FTP_PASSWORD }}  # veilig opgeslagen in Secrets
-          protocol: ftps                         # explicit TLS
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
           port: 21
-          server-dir: /httpdocs/                 # deploy root
-          local-dir: ./                           # alles lokaal
+          # Repo root = theme folder
+          local-dir: ./
+          # Server pad = waar theme moet komen
+          server-dir: /httpdocs/wp-content/themes/twentytwentythree-child
           exclude: |
             **/.git*
             **/.github/**
-            **/node_modules/**
-            **/wp-content/uploads/**
-            **/wp-content/cache/**
-            **/logs/**
-
-      # 3️⃣ Optioneel: bevestiging
-      - name: Done
-        run: echo "✅ Deploy completed successfully!"
