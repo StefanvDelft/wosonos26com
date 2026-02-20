@@ -1,0 +1,34 @@
+name: Test FTPS Deploy (Empty Commit)
+
+on:
+  workflow_dispatch:  # alleen handmatig
+
+jobs:
+  test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repo
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2️⃣ Maak een tijdelijke testfile
+      - name: Create dummy test file
+        run: echo "FTPS deploy test - $(date)" > .deploy-test.txt
+
+      # 3️⃣ Upload dummy file via FTPS
+      - name: Deploy test file via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./.deploy-test.txt
+          server-dir: /httpdocs/wp-content/themes/twentytwentythree-child
+          dry-run: false       # echte upload
+
+      # 4️⃣ Bevestiging
+      - name: Done
+        run: echo "✅ Test deploy completed successfully!"
