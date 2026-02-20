@@ -1,31 +1,33 @@
 name: Deploy Child Theme to Plesk via FTPS
 
 on:
-  # push:
-  #   branches: [ main ]   # uncomment if you want automatic deploy on push
-  workflow_dispatch:       # manual trigger via GitHub Actions
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # 2️⃣ Deploy via FTPS
       - name: Deploy Child Theme via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
+
           protocol: ftps
+          security: explicit
+          passive: true
+          tlsReuse: false
+          timeout: 60000
           port: 21
-          local-dir: ./                           # repo root = all child theme files
+
+          local-dir: ./
           server-dir: /httpdocs/wp-content/themes/twentytwentythree-child/
-          dry-run: false                          # true = simulation, false = real deploy
+
           exclude: |
             .git*
             .github/
