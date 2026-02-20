@@ -12,18 +12,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy Child Theme via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0-beta
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
 
           protocol: ftps
-          security: explicit
-          passive: true
-          tlsReuse: false
-          timeout: 60000
           port: 21
+          security: loose
+          timeout: 60000
 
           local-dir: ./
           server-dir: /httpdocs/wp-content/themes/twentytwentythree-child/
