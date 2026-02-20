@@ -24,7 +24,7 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./                           # repo root = all child theme files
-          server-dir: /httpdocs/wp-content/themes/twentytwentythree-child
+          server-dir: /httpdocs/wp-content/themes/twentytwentythree-child/
           dry-run: false                          # true = simulation, false = real deploy
           exclude: |
             .git*
